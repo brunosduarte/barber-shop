@@ -91,7 +91,11 @@ async function seedDatabase() {
     }
 
     // Função para validar URLs
-    const isValidUrl = (url: string): boolean => {
+    interface UrlValidator {
+      (url: string): boolean;
+    }
+
+    const isValidUrl: UrlValidator = (url: string): boolean => {
       try {
       new URL(url);
       return true;
@@ -112,11 +116,11 @@ async function seedDatabase() {
       }
 
       // Criar barbearia
-      const barbershop = await prisma.barbershop.create({
+      const barbershop = await prisma.barberShop.create({
         data: {
           name,
           address,
-          phones: ["(11) 99999-9999"],
+          phone: ["(11) 99999-9999"],
           description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac augue ullamcorper, pharetra orci mollis, auctor tellus.",
           imageUrl,
