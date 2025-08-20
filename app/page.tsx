@@ -1,12 +1,14 @@
 "use client"
 
-import { Button } from "./_components/ui/button";
+import Header from "./_components/header"
+import { Button } from "./_components/ui/button"
 
 export default function Home() {
   return (
     <div>
+      <Header />
       <h1>Welcome to the Barber Shop</h1>
       <Button variant="default">Book Now</Button>
     </div>
-  );
+  )
 }
