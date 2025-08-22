@@ -8,9 +8,15 @@ import { Badge } from "./_components/ui/badge"
 import { Avatar, AvatarImage } from "./_components/ui/avatar"
 import { db } from "./_lib/prisma"
 import BarbershopItem from "./_components/barbershop-item"
+import Footer from "./_components/footer"
 
 const Home = async () => {
   const barbershops = await db.barberShop.findMany({})
+  const popularBarbershops = await db.barberShop.findMany({
+    orderBy: {
+      name: "desc",
+    },
+  })
 
   return (
     <div>
@@ -40,7 +46,7 @@ const Home = async () => {
         </div>
 
         {/* AGENDAMENTOS */}
-        <h2 className="mt-6 mb-3 text-sm font-bold text-gray-400 uppercase">
+        <h2 className="mt-6 mb-3 text-xs font-bold text-gray-400 uppercase">
           Agendamentos
         </h2>
 
@@ -68,7 +74,7 @@ const Home = async () => {
           </CardContent>
         </Card>
 
-        <h2 className="mt-6 mb-3 text-sm font-bold text-gray-400 uppercase">
+        <h2 className="mt-6 mb-3 text-xs font-bold text-gray-400 uppercase">
           Recomendados
         </h2>
 
@@ -77,7 +83,19 @@ const Home = async () => {
             <BarbershopItem key={barbershop.id} barbershop={barbershop} />
           ))}
         </div>
+
+        <h2 className="mt-6 mb-3 text-xs font-bold text-gray-400 uppercase">
+          Populares
+        </h2>
+
+        <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+          {popularBarbershops.map((barbershop) => (
+            <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+          ))}
+        </div>
       </div>
+
+      <Footer />
     </div>
   )
 }
