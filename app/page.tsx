@@ -9,6 +9,7 @@ import { Avatar, AvatarImage } from "./_components/ui/avatar"
 import { db } from "./_lib/prisma"
 import BarbershopItem from "./_components/barbershop-item"
 import Footer from "./_components/footer"
+import QuickSearch from "./_components/quick-search"
 
 const Home = async () => {
   const barbershops = await db.barberShop.findMany({})
@@ -34,6 +35,9 @@ const Home = async () => {
             <SearchIcon />
           </Button>
         </div>
+
+        {/* BUSCA RÁPIDA */}
+        <QuickSearch />
 
         {/* IMAGEM */}
         <div className="relative mt-6 h-[150px] w-full">
