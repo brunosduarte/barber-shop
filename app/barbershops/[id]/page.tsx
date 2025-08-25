@@ -1,5 +1,5 @@
 import PhoneItem from "@/app/_components/phone-item"
-// import ServiceItem from "@/app/_components/service-item"
+import ServiceItem from "@/app/_components/service-item"
 // import SidebarSheet from "@/app/_components/sidebar-sheet"
 import { Button } from "@/app/_components/ui/button"
 import { Sheet, SheetTrigger } from "@/app/_components/ui/sheet"
@@ -90,7 +90,7 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
       {/* SERVIÇOS */}
       <div className="space-y-3 border-b border-solid p-5">
         <h2 className="text-xs font-bold text-gray-400 uppercase">Serviços</h2>
-        {/* <div className="space-y-3">
+        <div className="space-y-3">
           {barbershop.services.map((service) => (
             <ServiceItem
               key={service.id}
@@ -98,7 +98,7 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
               service={JSON.parse(JSON.stringify(service))}
             />
           ))}
-        </div> */}
+        </div>
       </div>
 
       {/* CONTATO */}
