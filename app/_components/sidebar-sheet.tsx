@@ -21,7 +21,7 @@ const SidebarSheet = () => {
         <SheetTitle className="text-left">Menu</SheetTitle>
       </SheetHeader>
 
-      <div className="flex items-center justify-between gap-3 border-b border-solid py-5">
+      <div className="flex items-center justify-between gap-3 border-b border-solid px-4 py-5">
         {data?.user ? (
           <div className="flex items-center gap-2">
             <Avatar>
