@@ -176,6 +176,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
               src={service.imageUrl}
               fill
               className="rounded-lg object-cover"
+              sizes="110px"
             />
           </div>
           {/* DIREITA */}

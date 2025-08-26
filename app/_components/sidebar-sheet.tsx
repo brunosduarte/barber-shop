@@ -2,7 +2,13 @@
 
 import { Button } from "./ui/button"
 import { CalendarIcon, HomeIcon, LogInIcon, LogOutIcon } from "lucide-react"
-import { SheetClose, SheetContent, SheetHeader, SheetTitle } from "./ui/sheet"
+import {
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "./ui/sheet"
 import { quickSearchOptions } from "../_constants/search"
 import Link from "next/link"
 import Image from "next/image"
@@ -19,13 +25,16 @@ const SidebarSheet = () => {
     <SheetContent className="overflow-y-auto">
       <SheetHeader>
         <SheetTitle className="text-left">Menu</SheetTitle>
+        <SheetDescription className="text-left">
+          Navegue pelas opções do menu
+        </SheetDescription>
       </SheetHeader>
 
       <div className="flex items-center justify-between gap-3 border-b border-solid px-4 py-5">
         {data?.user ? (
           <div className="flex items-center gap-2">
             <Avatar>
-              <AvatarImage src={data?.user?.image ?? ""} />
+              <AvatarImage src={data?.user?.image ?? "oi"} />
             </Avatar>
 
             <div>
