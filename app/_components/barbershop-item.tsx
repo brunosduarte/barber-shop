@@ -1,4 +1,4 @@
-import { BarberShop } from "@/generated/prisma/client"
+import { Barbershop } from "@/generated/prisma/client"
 import { Card, CardContent } from "./ui/card"
 import Image from "next/image"
 import { Button } from "./ui/button"
@@ -7,10 +7,14 @@ import { Badge } from "./ui/badge"
 import Link from "next/link"
 
 interface BarbershopItemProps {
-  barbershop: BarberShop
+  barbershop: Barbershop
+  priority?: boolean
 }
 
-const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
+const BarbershopItem = ({
+  barbershop,
+  priority = false,
+}: BarbershopItemProps) => {
   return (
     <Card className="min-w-[167px] rounded-2xl">
       <CardContent className="p-0 px-1 pt-1">
@@ -22,6 +26,7 @@ const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
             src={barbershop.imageUrl}
             alt={barbershop.name}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority={priority}
           />
 
           <Badge

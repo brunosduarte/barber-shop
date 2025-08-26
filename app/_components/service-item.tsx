@@ -1,7 +1,7 @@
 "use client"
 
 import {
-  BarberShop,
+  Barbershop,
   BarbershopService,
   Booking,
 } from "@/generated/prisma/client"
@@ -30,7 +30,7 @@ import { useRouter } from "next/navigation"
 
 interface ServiceItemProps {
   service: BarbershopService
-  barbershop: Pick<BarberShop, "name">
+  barbershop: Pick<Barbershop, "name">
 }
 
 const TIME_LIST = [
