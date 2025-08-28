@@ -1,31 +1,13 @@
-interface QuickSearchOption {
+export interface QuickSearchOption {
   imageUrl: string
   title: string
 }
 
 export const quickSearchOptions: QuickSearchOption[] = [
-  {
-    imageUrl: "/cabelo.svg",
-    title: "Cabelo",
-  },
-  {
-    imageUrl: "/barba.svg",
-    title: "Barba",
-  },
-  {
-    imageUrl: "/acabamento.svg",
-    title: "Acabamento",
-  },
-  {
-    imageUrl: "/massagem.svg",
-    title: "Massagem",
-  },
-  {
-    imageUrl: "/sobrancelha.svg",
-    title: "Sobrancelha",
-  },
-  {
-    imageUrl: "/hidratacao.svg",
-    title: "Hidratação",
-  },
-]
+  ["/cabelo.svg", "Cabelo"],
+  ["/barba.svg", "Barba"],
+  ["/acabamento.svg", "Acabamento"],
+  ["/massagem.svg", "Massagem"],
+  ["/sobrancelha.svg", "Sobrancelha"],
+  ["/hidratacao.svg", "Hidratação"],
+].map(([imageUrl, title]) => ({ imageUrl, title }))

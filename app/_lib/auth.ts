@@ -3,6 +3,17 @@ import { AuthOptions } from "next-auth"
 import { prismaClientForAdapter } from "./prisma"
 import GoogleProvider from "next-auth/providers/google"
 
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id: string
+      name?: string | null
+      email?: string | null
+      image?: string | null
+    }
+  }
+}
+
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prismaClientForAdapter),
   providers: [

@@ -11,6 +11,7 @@ import { Card, CardContent } from "./ui/card"
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetFooter,
   SheetHeader,
   SheetTitle,
@@ -207,6 +208,9 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                 <SheetContent className="px-0">
                   <SheetHeader>
                     <SheetTitle>Fazer Reserva</SheetTitle>
+                    <SheetDescription>
+                      Selecione a data e horário desejados para sua reserva
+                    </SheetDescription>
                   </SheetHeader>
 
                   <div className="border-b border-solid py-5">
