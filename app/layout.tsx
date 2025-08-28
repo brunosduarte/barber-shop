@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
 import { Toaster } from "sonner"
 import Footer from "./_components/footer"
-import SessionProvider from "./_providers/auth-provider"
+import AuthProvider from "./_providers/auth-provider"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,14 +27,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} flex h-dvh flex-col justify-between antialiased`}
-      >
-        <SessionProvider>
-          {children}
-          <Toaster />
-          <Footer />
-        </SessionProvider>
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <AuthProvider>
+          <div className="flex h-full flex-col justify-between">
+            {children}
+            <Footer />
+          </div>
+        </AuthProvider>
+        <Toaster />
       </body>
     </html>
   )

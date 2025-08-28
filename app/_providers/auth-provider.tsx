@@ -6,8 +6,8 @@ interface SessionProviderProps {
   children: React.ReactNode
 }
 
-const SessionProvider = ({ children }: SessionProviderProps) => {
+const AuthProvider = ({ children }: SessionProviderProps) => {
   return <NextAuthSessionProvider>{children}</NextAuthSessionProvider>
 }
 
-export default SessionProvider
+export default AuthProvider
