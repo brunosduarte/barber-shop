@@ -1,4 +1,4 @@
-import { PrismaClient } from "../generated/prisma"
+import { PrismaClient } from "@prisma/client"
 
 async function seedDatabase() {
   const prisma = new PrismaClient()
@@ -403,7 +403,10 @@ async function seedDatabase() {
 
       if (ratings.length > 0) {
         const averageRating =
-          ratings.reduce((sum, r) => sum + r.rating, 0) / ratings.length
+          ratings.reduce(
+            (sum: number, r: { rating: number }) => sum + r.rating,
+            0,
+          ) / ratings.length
         await prisma.barbershop.update({
           where: { id: barbershop.id },
           data: {

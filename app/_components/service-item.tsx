@@ -1,10 +1,6 @@
 "use client"
 
-import {
-  Barbershop,
-  BarbershopService,
-  Booking,
-} from "@/generated/prisma/client"
+import { Barbershop, BarbershopService, Booking } from "@prisma/client"
 import Image from "next/image"
 import { TIME_LIST } from "@/app/_constants/booking"
 import { Button } from "./ui/button"

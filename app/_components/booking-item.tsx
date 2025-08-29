@@ -139,14 +139,17 @@ const BookingItem = ({ booking }: BookingItemProps) => {
 
             <div className="mt-6 mb-3">
               <BookingSummary
-                barbershop={barbershop}
-                service={booking.service}
+                barbershop={{ name: barbershop.name }}
+                service={{
+                  name: booking.service.name,
+                  price: booking.service.price,
+                }}
                 selectedDate={booking.date}
               />
             </div>
 
             <div className="space-y-3">
-              {barbershop.phones.map((phone, index) => (
+              {barbershop.phones.map((phone: string, index: number) => (
                 <PhoneItem key={index} phone={phone} />
               ))}
             </div>
