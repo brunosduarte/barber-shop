@@ -1,6 +1,5 @@
 "use client"
 
-import { Prisma } from "@prisma/client"
 import { Avatar, AvatarImage } from "./ui/avatar"
 import { Badge } from "./ui/badge"
 import { Card, CardContent } from "./ui/card"
@@ -33,40 +32,12 @@ import { deleteBooking } from "../_actions/delete-booking"
 import { toast } from "sonner"
 import { useState } from "react"
 import BookingSummary from "./booking-summary"
-
-type BookingWithNumberPrice = Omit<
-  Prisma.BookingGetPayload<{
-    include: {
-      service: {
-        include: {
-          barbershop: true
-        }
-      }
-    }
-  }>,
-  "service"
-> & {
-  service: Omit<
-    Prisma.BookingGetPayload<{
-      include: {
-        service: {
-          include: {
-            barbershop: true
-          }
-        }
-      }
-    }>["service"],
-    "price"
-  > & {
-    price: number
-  }
-}
+import { BookingWithNumberPrice } from "@/app/_types/booking"
 
 interface BookingItemProps {
   booking: BookingWithNumberPrice
 }
 
-// TODO: receber agendamento como prop
 const BookingItem = ({ booking }: BookingItemProps) => {
   const [isSheetOpen, setIsSheetOpen] = useState(false)
   const {
@@ -78,8 +49,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
       await deleteBooking(booking.id)
       setIsSheetOpen(false)
       toast.success("Reserva cancelada com sucesso!")
-    } catch (error) {
-      console.error(error)
+    } catch {
       toast.error("Erro ao cancelar reserva. Tente novamente.")
     }
   }

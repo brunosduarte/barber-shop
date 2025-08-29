@@ -6,6 +6,7 @@ import {
   Booking,
 } from "@/generated/prisma/client"
 import Image from "next/image"
+import { TIME_LIST } from "@/app/_constants/booking"
 import { Button } from "./ui/button"
 import { Card, CardContent } from "./ui/card"
 import {
@@ -33,30 +34,6 @@ interface ServiceItemProps {
   service: BarbershopService
   barbershop: Pick<Barbershop, "name">
 }
-
-const TIME_LIST = [
-  "08:00",
-  "08:30",
-  "09:00",
-  "09:30",
-  "10:00",
-  "10:30",
-  "11:00",
-  "11:30",
-  "12:00",
-  "12:30",
-  "13:00",
-  "13:30",
-  "14:00",
-  "14:30",
-  "15:00",
-  "15:30",
-  "16:00",
-  "16:30",
-  "17:00",
-  "17:30",
-  "18:00",
-]
 
 interface GetTimeListProps {
   bookings: Booking[]
@@ -156,8 +133,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
           onClick: () => router.push("/bookings"),
         },
       })
-    } catch (error) {
-      console.error(error)
+    } catch {
       toast.error("Erro ao criar reserva!")
     } finally {
       setIsCreatingBooking(false)

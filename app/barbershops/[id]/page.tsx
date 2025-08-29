@@ -8,6 +8,7 @@ import { ChevronLeftIcon, MapPinIcon, MenuIcon, StarIcon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
+import { serializeForClient } from "@/app/_lib/decimal"
 
 interface BarbershopPageProps {
   params: Promise<{
@@ -94,8 +95,8 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
           {barbershop.services.map((service) => (
             <ServiceItem
               key={service.id}
-              barbershop={JSON.parse(JSON.stringify(barbershop))}
-              service={JSON.parse(JSON.stringify(service))}
+              barbershop={serializeForClient(barbershop)}
+              service={serializeForClient(service)}
             />
           ))}
         </div>

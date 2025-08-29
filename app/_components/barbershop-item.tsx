@@ -5,6 +5,7 @@ import { Button } from "./ui/button"
 import { StarIcon } from "lucide-react"
 import { Badge } from "./ui/badge"
 import Link from "next/link"
+import { DEFAULT_BARBERSHOP_RATING } from "@/app/_constants/booking"
 
 interface BarbershopItemProps {
   barbershop: Barbershop
@@ -34,7 +35,7 @@ const BarbershopItem = ({
             variant="secondary"
           >
             <StarIcon size={12} className="fill-primary text-primary" />
-            <p className="text-xs font-semibold">5,0</p>
+            <p className="text-xs font-semibold">{DEFAULT_BARBERSHOP_RATING}</p>
           </Badge>
         </div>
 

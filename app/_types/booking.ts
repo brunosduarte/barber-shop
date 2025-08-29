@@ -9,3 +9,12 @@ export type BookingWithServiceAndBarbershop = Prisma.BookingGetPayload<{
     }
   }
 }>
+
+export type BookingWithNumberPrice = Omit<
+  BookingWithServiceAndBarbershop,
+  "service"
+> & {
+  service: Omit<BookingWithServiceAndBarbershop["service"], "price"> & {
+    price: number
+  }
+}

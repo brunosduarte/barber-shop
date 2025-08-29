@@ -11,7 +11,7 @@ export const getConfirmedBookings = async () => {
   }
   const bookings = await db.booking.findMany({
     where: {
-      userId: (session.user as { id: string }).id,
+      userId: session.user.id,
       date: {
         gte: new Date(),
       },
