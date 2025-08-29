@@ -15,7 +15,16 @@ export type BookingWithNumberPrice = Omit<
   BookingWithServiceAndBarbershop,
   "service"
 > & {
-  service: Omit<BookingWithServiceAndBarbershop["service"], "price"> & {
+  service: Omit<
+    BookingWithServiceAndBarbershop["service"],
+    "price" | "barbershop"
+  > & {
     price: number
+    barbershop: Omit<
+      BookingWithServiceAndBarbershop["service"]["barbershop"],
+      "averageRating"
+    > & {
+      averageRating: number | null
+    }
   }
 }

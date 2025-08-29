@@ -12,7 +12,7 @@ interface BarbershopsPageProps {
 
 const BarbershopsPage = async ({ searchParams }: BarbershopsPageProps) => {
   const resolvedSearchParams = await searchParams
-  const barbershops = await db.barbershop.findMany({
+  const barbershopsRaw = await db.barbershop.findMany({
     where: {
       OR: [
         resolvedSearchParams?.title
@@ -48,6 +48,13 @@ const BarbershopsPage = async ({ searchParams }: BarbershopsPageProps) => {
     orderBy: [{ averageRating: "desc" }, { totalRatings: "desc" }],
   })
 
+  const barbershops = barbershopsRaw.map((barbershop) => ({
+    ...barbershop,
+    averageRating: barbershop.averageRating
+      ? Number(barbershop.averageRating)
+      : null,
+  }))
+
   return (
     <div className="mb-4">
       <Header />
@@ -62,15 +69,7 @@ const BarbershopsPage = async ({ searchParams }: BarbershopsPageProps) => {
         </h2>
         <div className="grid grid-cols-2 gap-4">
           {barbershops.map((barbershop) => (
-            <BarbershopItem
-              key={barbershop.id}
-              barbershop={{
-                ...barbershop,
-                averageRating: barbershop.averageRating
-                  ? Number(barbershop.averageRating)
-                  : null,
-              }}
-            />
+            <BarbershopItem key={barbershop.id} barbershop={barbershop} />
           ))}
         </div>
       </div>

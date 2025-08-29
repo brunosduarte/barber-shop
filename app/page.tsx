@@ -16,7 +16,7 @@ const Home = async () => {
   const session = await getServerSession(authOptions)
   const confirmedBookings = session?.user ? await getConfirmedBookings() : []
 
-  const barbershops = await db.barbershop.findMany({
+  const barbershopsRaw = await db.barbershop.findMany({
     select: {
       id: true,
       name: true,
@@ -28,7 +28,7 @@ const Home = async () => {
     orderBy: [{ averageRating: "desc" }, { totalRatings: "desc" }],
   })
 
-  const popularBarbershops = await db.barbershop.findMany({
+  const popularBarbershopsRaw = await db.barbershop.findMany({
     select: {
       id: true,
       name: true,
@@ -41,6 +41,20 @@ const Home = async () => {
       name: "desc",
     },
   })
+
+  const barbershops = barbershopsRaw.map((barbershop) => ({
+    ...barbershop,
+    averageRating: barbershop.averageRating
+      ? Number(barbershop.averageRating)
+      : null,
+  }))
+
+  const popularBarbershops = popularBarbershopsRaw.map((barbershop) => ({
+    ...barbershop,
+    averageRating: barbershop.averageRating
+      ? Number(barbershop.averageRating)
+      : null,
+  }))
 
   const formattedDateString = () => {
     const today = new Date()
@@ -79,6 +93,7 @@ const Home = async () => {
             alt="Agende nos melhores com BsD Barber"
             src="/banner-01.png"
             fill
+            priority
             className="rounded-xl object-cover"
           />
         </div>
@@ -107,12 +122,7 @@ const Home = async () => {
           {barbershops.map((barbershop, index) => (
             <BarbershopItem
               key={barbershop.id}
-              barbershop={{
-                ...barbershop,
-                averageRating: barbershop.averageRating
-                  ? Number(barbershop.averageRating)
-                  : null,
-              }}
+              barbershop={barbershop}
               priority={index < 3}
             />
           ))}
@@ -124,15 +134,7 @@ const Home = async () => {
 
         <SwipeContainer gap={16}>
           {popularBarbershops.map((barbershop) => (
-            <BarbershopItem
-              key={barbershop.id}
-              barbershop={{
-                ...barbershop,
-                averageRating: barbershop.averageRating
-                  ? Number(barbershop.averageRating)
-                  : null,
-              }}
-            />
+            <BarbershopItem key={barbershop.id} barbershop={barbershop} />
           ))}
         </SwipeContainer>
       </div>
