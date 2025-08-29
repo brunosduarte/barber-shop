@@ -5,6 +5,7 @@ import BarbershopItem from "./_components/barbershop-item"
 import QuickSearch from "./_components/quick-search"
 import Search from "./_components/search"
 import BookingItem from "./_components/booking-item"
+import SwipeContainer from "./_components/swipe-container"
 import { getServerSession } from "next-auth"
 import { authOptions } from "./_lib/auth"
 import { getConfirmedBookings } from "./_data/get-confirmed-bookings"
@@ -102,7 +103,7 @@ const Home = async () => {
           Recomendados
         </h2>
 
-        <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+        <SwipeContainer gap={16}>
           {barbershops.map((barbershop, index) => (
             <BarbershopItem
               key={barbershop.id}
@@ -115,13 +116,13 @@ const Home = async () => {
               priority={index < 3}
             />
           ))}
-        </div>
+        </SwipeContainer>
 
         <h2 className="mt-6 mb-3 text-xs font-bold text-gray-400 uppercase">
           Populares
         </h2>
 
-        <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+        <SwipeContainer gap={16}>
           {popularBarbershops.map((barbershop) => (
             <BarbershopItem
               key={barbershop.id}
@@ -133,7 +134,7 @@ const Home = async () => {
               }}
             />
           ))}
-        </div>
+        </SwipeContainer>
       </div>
     </div>
   )
