@@ -1,37 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Project Overview
 
-## Getting Started
+This is a Next.js 15 barbershop booking application built with React 19, TypeScript, and Prisma ORM. The app uses PostgreSQL as the database with Prisma Accelerate for connection pooling. It features a component-based architecture with shadcn/ui components and Tailwind CSS for styling.
 
-First, run the development server:
+## Development Commands
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- `npm run dev` - Start development server on localhost:3000
+- `npm run build` - Build production application
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint to check code quality
+- `npx prisma generate` - Generate Prisma client after schema changes
+- `npx prisma db push` - Push schema changes to database
+- `npx prisma db seed` - Seed database with sample barbershops and services
+- `npx prisma migrate dev` - Create and apply new migration
+- `npx prisma studio` - Open Prisma Studio database browser
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Architecture
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Database Layer
+- **Prisma ORM** with PostgreSQL database
+- **Custom Prisma Client Path**: Generated client located in `generated/prisma/` (not default location)
+- **Prisma Accelerate**: Connection pooling and caching via `@prisma/extension-accelerate`
+- **Database Access**: Use `db` export from `app/_lib/prisma.ts`, not direct PrismaClient
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Core Models
+- `User`: User accounts with bookings relationship
+- `BarberShop`: Barbershop locations with services
+- `BarbershopService`: Services offered by barbershops (pricing in Decimal format)
+- `Booking`: User bookings connecting users, barbershops, and services
 
-## Learn More
+### Frontend Structure
+- **App Router**: Next.js 15 app directory structure
+- **UI Components**: shadcn/ui components in `app/_components/ui/`
+- **Shared Components**: Custom components in `app/_components/`
+- **Styling**: Tailwind CSS with dark mode enabled by default
+- **Fonts**: Geist and Geist Mono from next/font/google
 
-To learn more about Next.js, take a look at the following resources:
+### Code Quality
+- **ESLint**: Next.js ESLint configuration
+- **Prettier**: Code formatting with Tailwind CSS plugin
+- **Husky**: Git hooks for code quality
+- **lint-staged**: Pre-commit linting and formatting
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Database Setup
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Ensure PostgreSQL is running (docker-compose.yml available)
+2. Set `DATABASE_URL` environment variable
+3. Run `npx prisma generate` to generate client
+4. Run `npx prisma db push` to create tables
+5. Run `npx prisma db seed` to populate with sample data
 
-## Deploy on Vercel
+## Important Notes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# barber-shop
+- Prisma client is generated to `generated/prisma/` directory, not the default location
+- Always import database access from `app/_lib/prisma.ts` as `db`
+- The app uses dark mode by default (className="dark" in layout)
+- Phone numbers are stored as string arrays in BarberShop model
+- Service prices use Decimal type for precision
+- All IDs use UUID format with @default(uuid())

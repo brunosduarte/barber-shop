@@ -7,18 +7,13 @@ import Search from "./_components/search"
 import BookingItem from "./_components/booking-item"
 import { getServerSession } from "next-auth"
 import { authOptions } from "./_lib/auth"
-import { notFound } from "next/navigation"
 import { getConfirmedBookings } from "./_data/get-confirmed-bookings"
 import { format } from "date-fns"
 import { ptBR } from "date-fns/locale/pt-BR"
 
 const Home = async () => {
   const session = await getServerSession(authOptions)
-  if (!session?.user) {
-    // TODO: mostrar pop-up de login
-    return notFound()
-  }
-  const confirmedBookings = await getConfirmedBookings()
+  const confirmedBookings = session?.user ? await getConfirmedBookings() : []
 
   const barbershops = await db.barbershop.findMany({})
   const popularBarbershops = await db.barbershop.findMany({
@@ -27,7 +22,7 @@ const Home = async () => {
     },
   })
 
-  const formatDateString = () => {
+  const formattedDateString = () => {
     const today = new Date()
     const weekday = format(today, "eeee", { locale: ptBR })
     const day = format(today, "dd")
@@ -36,7 +31,7 @@ const Home = async () => {
     const capitalizedWeekday =
       weekday.charAt(0).toUpperCase() + weekday.slice(1).toLowerCase()
 
-    return `${capitalizedWeekday}, ${day} de ${month.toLowerCase()}`
+    return `${capitalizedWeekday}, ${day} de ${month}`
   }
 
   return (
@@ -45,8 +40,10 @@ const Home = async () => {
       <Header />
       <div className="p-5">
         {/* TEXTO */}
-        <h2 className="text-xl font-bold"> Olá, {session.user.name}!</h2>
-        <p>{formatDateString()}</p>
+        <h2 className="text-xl font-bold">
+          Olá, {session?.user ? session.user.name : "bem vindo"}!
+        </h2>
+        <p>{formattedDateString()}</p>
 
         {/* BUSCA */}
         <div className="mt-6">

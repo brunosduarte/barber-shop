@@ -123,7 +123,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
           </CardContent>
         </Card>
       </SheetTrigger>
-      <SheetContent className="w-[85%]">
+      <SheetContent className="w-[85%] p-5">
         <SheetHeader>
           <SheetTitle className="text-left">Informações da Reserva</SheetTitle>
           <SheetDescription>
@@ -175,7 +175,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
           </div>
         </div>
         <SheetFooter className="mt-6">
-          <div className="flex items-center justify-between gap-3">
+          <div className="w-full flex-1 items-center justify-between gap-3">
             <SheetClose asChild>
               <Button variant="outline">Voltar</Button>
             </SheetClose>
