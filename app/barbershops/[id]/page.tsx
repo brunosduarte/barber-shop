@@ -4,11 +4,15 @@ import SidebarSheet from "@/app/_components/sidebar-sheet"
 import { Button } from "@/app/_components/ui/button"
 import { Sheet, SheetTrigger } from "@/app/_components/ui/sheet"
 import { db } from "@/app/_lib/prisma"
-import { ChevronLeftIcon, MapPinIcon, MenuIcon, StarIcon } from "lucide-react"
+import { ChevronLeftIcon, MapPinIcon, MenuIcon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { serializeForClient } from "@/app/_lib/decimal"
+import RatingStars from "@/app/_components/rating-stars"
+import RatingList from "@/app/_components/rating-list"
+import { getBarbershopRatings } from "@/app/_actions/get-ratings"
+import { formatRating, getRatingCountText } from "@/app/_lib/rating"
 
 interface BarbershopPageProps {
   params: Promise<{
@@ -27,6 +31,8 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
       services: true,
     },
   })
+
+  const ratings = await getBarbershopRatings(id)
 
   if (!barbershop) {
     return notFound()
@@ -77,8 +83,21 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
         </div>
 
         <div className="flex items-center gap-2">
-          <StarIcon className="fill-primary text-primary" size={18} />
-          <p className="text-sm">5,0 (499 avaliações)</p>
+          <RatingStars
+            rating={
+              barbershop.averageRating ? Number(barbershop.averageRating) : 0
+            }
+            size={18}
+            showValue={false}
+          />
+          <p className="text-sm">
+            {formatRating(
+              barbershop.averageRating
+                ? Number(barbershop.averageRating)
+                : null,
+            )}{" "}
+            ({getRatingCountText(barbershop.totalRatings)})
+          </p>
         </div>
       </div>
 
@@ -107,6 +126,11 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
         {barbershop.phones.map((phone) => (
           <PhoneItem key={phone} phone={phone} />
         ))}
+      </div>
+
+      {/* AVALIAÇÕES */}
+      <div className="p-5">
+        <RatingList ratings={ratings} />
       </div>
     </div>
   )

@@ -37,6 +37,15 @@ const BarbershopsPage = async ({ searchParams }: BarbershopsPageProps) => {
           : {},
       ],
     },
+    select: {
+      id: true,
+      name: true,
+      address: true,
+      imageUrl: true,
+      averageRating: true,
+      totalRatings: true,
+    },
+    orderBy: [{ averageRating: "desc" }, { totalRatings: "desc" }],
   })
 
   return (
@@ -53,7 +62,15 @@ const BarbershopsPage = async ({ searchParams }: BarbershopsPageProps) => {
         </h2>
         <div className="grid grid-cols-2 gap-4">
           {barbershops.map((barbershop) => (
-            <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+            <BarbershopItem
+              key={barbershop.id}
+              barbershop={{
+                ...barbershop,
+                averageRating: barbershop.averageRating
+                  ? Number(barbershop.averageRating)
+                  : null,
+              }}
+            />
           ))}
         </div>
       </div>

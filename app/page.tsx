@@ -15,8 +15,27 @@ const Home = async () => {
   const session = await getServerSession(authOptions)
   const confirmedBookings = session?.user ? await getConfirmedBookings() : []
 
-  const barbershops = await db.barbershop.findMany({})
+  const barbershops = await db.barbershop.findMany({
+    select: {
+      id: true,
+      name: true,
+      address: true,
+      imageUrl: true,
+      averageRating: true,
+      totalRatings: true,
+    },
+    orderBy: [{ averageRating: "desc" }, { totalRatings: "desc" }],
+  })
+
   const popularBarbershops = await db.barbershop.findMany({
+    select: {
+      id: true,
+      name: true,
+      address: true,
+      imageUrl: true,
+      averageRating: true,
+      totalRatings: true,
+    },
     orderBy: {
       name: "desc",
     },
@@ -87,7 +106,12 @@ const Home = async () => {
           {barbershops.map((barbershop, index) => (
             <BarbershopItem
               key={barbershop.id}
-              barbershop={barbershop}
+              barbershop={{
+                ...barbershop,
+                averageRating: barbershop.averageRating
+                  ? Number(barbershop.averageRating)
+                  : null,
+              }}
               priority={index < 3}
             />
           ))}
@@ -99,7 +123,15 @@ const Home = async () => {
 
         <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
           {popularBarbershops.map((barbershop) => (
-            <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+            <BarbershopItem
+              key={barbershop.id}
+              barbershop={{
+                ...barbershop,
+                averageRating: barbershop.averageRating
+                  ? Number(barbershop.averageRating)
+                  : null,
+              }}
+            />
           ))}
         </div>
       </div>

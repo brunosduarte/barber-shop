@@ -1,14 +1,20 @@
-import { Barbershop } from "@/generated/prisma/client"
 import { Card, CardContent } from "./ui/card"
 import Image from "next/image"
 import { Button } from "./ui/button"
 import { StarIcon } from "lucide-react"
 import { Badge } from "./ui/badge"
 import Link from "next/link"
-import { DEFAULT_BARBERSHOP_RATING } from "@/app/_constants/booking"
+import { formatRating } from "@/app/_lib/rating"
 
 interface BarbershopItemProps {
-  barbershop: Barbershop
+  barbershop: {
+    id: string
+    name: string
+    address: string
+    imageUrl: string
+    averageRating: number | null
+    totalRatings: number
+  }
   priority?: boolean
 }
 
@@ -35,7 +41,9 @@ const BarbershopItem = ({
             variant="secondary"
           >
             <StarIcon size={12} className="fill-primary text-primary" />
-            <p className="text-xs font-semibold">{DEFAULT_BARBERSHOP_RATING}</p>
+            <p className="text-xs font-semibold">
+              {formatRating(barbershop.averageRating)}
+            </p>
           </Badge>
         </div>
 

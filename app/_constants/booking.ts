@@ -24,5 +24,9 @@ export const TIME_LIST = [
 
 export type BookingTime = (typeof TIME_LIST)[number]
 
-// Default rating for barbershops (until rating system is implemented)
-export const DEFAULT_BARBERSHOP_RATING = "5,0"
+// Rating system constants
+export const RATING_STARS = [1, 2, 3, 4, 5] as const
+export const MIN_RATING = 1
+export const MAX_RATING = 5
+
+export type RatingValue = (typeof RATING_STARS)[number]

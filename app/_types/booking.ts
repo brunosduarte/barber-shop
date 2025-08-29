@@ -7,6 +7,7 @@ export type BookingWithServiceAndBarbershop = Prisma.BookingGetPayload<{
         barbershop: true
       }
     }
+    rating: true
   }
 }>
 
