@@ -57,7 +57,7 @@ const Home = async () => {
         <QuickSearch />
 
         {/* IMAGEM */}
-        <div className="relative mt-6 h-[150px] w-full">
+        <div className="relative mt-6 h-[150px] w-full md:h-[250px] lg:h-[350px]">
           <Image
             alt="Agende nos melhores com BsD Barber"
             src="/banner-01.png"

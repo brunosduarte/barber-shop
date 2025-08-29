@@ -9,7 +9,7 @@ export const getConfirmedBookings = async () => {
   if (!session?.user) {
     return []
   }
-  return db.booking.findMany({
+  const bookings = await db.booking.findMany({
     where: {
       userId: (session.user as { id: string }).id,
       date: {
@@ -27,4 +27,12 @@ export const getConfirmedBookings = async () => {
       date: "asc",
     },
   })
+
+  return bookings.map((booking) => ({
+    ...booking,
+    service: {
+      ...booking.service,
+      price: Number(booking.service.price),
+    },
+  }))
 }

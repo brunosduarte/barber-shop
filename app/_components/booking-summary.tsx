@@ -4,7 +4,7 @@ import { Barbershop, BarbershopService } from "@/generated/prisma/client"
 import { ptBR } from "date-fns/locale"
 
 interface BookingSummaryProps {
-  service: Pick<BarbershopService, "name" | "price">
+  service: Pick<BarbershopService, "name"> & { price: number }
   barbershop: Pick<Barbershop, "name">
   selectedDate: Date
 }

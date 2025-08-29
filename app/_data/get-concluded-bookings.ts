@@ -7,7 +7,7 @@ import { authOptions } from "../_lib/auth"
 export const getConcludedBookings = async () => {
   const session = await getServerSession(authOptions)
   if (!session?.user) return []
-  return db.booking.findMany({
+  const bookings = await db.booking.findMany({
     where: {
       userId: (session.user as { id: string }).id,
       date: {
@@ -25,4 +25,12 @@ export const getConcludedBookings = async () => {
       date: "asc",
     },
   })
+
+  return bookings.map((booking) => ({
+    ...booking,
+    service: {
+      ...booking.service,
+      price: Number(booking.service.price),
+    },
+  }))
 }

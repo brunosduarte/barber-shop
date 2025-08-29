@@ -95,6 +95,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
   )
   const [dayBookings, setDayBookings] = useState<Booking[]>([])
   const [bookingSheetIsOpen, setBookingSheetIsOpen] = useState(false)
+  const [isCreatingBooking, setIsCreatingBooking] = useState(false)
 
   useEffect(() => {
     const fetch = async () => {
@@ -139,8 +140,11 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
   }
 
   const handleCreateBooking = async () => {
+    if (isCreatingBooking) return
+
     try {
       if (!selectedDate) return
+      setIsCreatingBooking(true)
       await createBooking({
         serviceId: service.id,
         date: selectedDate,
@@ -155,6 +159,8 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
     } catch (error) {
       console.error(error)
       toast.error("Erro ao criar reserva!")
+    } finally {
+      setIsCreatingBooking(false)
     }
   }
 
@@ -181,11 +187,11 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
             />
           </div>
           {/* DIREITA */}
-          <div className="space-y-2">
+          <div className="flex-1 space-y-2">
             <h3 className="text-sm font-semibold">{service.name}</h3>
             <p className="text-sm text-gray-400">{service.description}</p>
             {/* PREÇO E BOTÃO */}
-            <div className="flex items-center justify-between">
+            <div className="flex flex-row items-center justify-between">
               <p className="text-primary text-sm font-bold">
                 {Intl.NumberFormat("pt-BR", {
                   style: "currency",
@@ -205,7 +211,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                   Reservar
                 </Button>
 
-                <SheetContent className="px-0">
+                <SheetContent className="overflow-y-scroll px-0 [&::-webkit-scrollbar]:hidden">
                   <SheetHeader>
                     <SheetTitle>Fazer Reserva</SheetTitle>
                     <SheetDescription>
@@ -248,7 +254,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                   </div>
 
                   {selectedDay && (
-                    <div className="flex gap-3 overflow-x-auto border-b border-solid p-5 [&::-webkit-scrollbar]:hidden">
+                    <div className="flex-1 overflow-x-auto border-b border-solid p-5 px-3 [&::-webkit-scrollbar]:hidden">
                       {timeList.length > 0 ? (
                         timeList.map((time) => (
                           <Button
@@ -274,7 +280,10 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                     <div className="p-5">
                       <BookingSummary
                         barbershop={barbershop}
-                        service={service}
+                        service={{
+                          name: service.name,
+                          price: Number(service.price),
+                        }}
                         selectedDate={selectedDate}
                       />
                     </div>
@@ -282,9 +291,11 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                   <SheetFooter className="mt-5 px-5">
                     <Button
                       onClick={handleCreateBooking}
-                      disabled={!selectedDay || !selectedTime}
+                      disabled={
+                        !selectedDay || !selectedTime || isCreatingBooking
+                      }
                     >
-                      Confirmar
+                      {isCreatingBooking ? "Criando..." : "Confirmar"}
                     </Button>
                   </SheetFooter>
                 </SheetContent>

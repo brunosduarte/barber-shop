@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
     ],
   },
   experimental: {
-    optimizeCss: true,
+    cssChunking: "strict",
   },
 }
 
