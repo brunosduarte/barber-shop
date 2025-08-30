@@ -2,6 +2,8 @@
 
 A modern, full-stack barbershop booking application built with Next.js 15, featuring Google authentication, real-time booking management, rating system, and responsive design.
 
+🌐 **Live Demo:** [https://bsd-barbershop.vercel.app](https://bsd-barbershop.vercel.app)
+
 ![BsD Barber](./public/banner-01.png)
 
 ## ✨ Features
