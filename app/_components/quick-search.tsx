@@ -2,6 +2,7 @@ import { quickSearchOptions } from "../_constants/search"
 import { Button } from "./ui/button"
 import Image from "next/image"
 import SwipeContainer from "./swipe-container"
+import Link from "next/link"
 
 const QuickSearch = () => {
   return (
@@ -12,9 +13,17 @@ const QuickSearch = () => {
             className="flex-shrink-0 gap-2"
             variant="secondary"
             key={option.title}
+            asChild
           >
-            <Image src={option.imageUrl} width={16} height={16} alt="Cabelo" />
-            {option.title}
+            <Link href={`/barbershops?service=${option.title}`}>
+              <Image
+                src={option.imageUrl}
+                width={16}
+                height={16}
+                alt={option.title}
+              />
+              {option.title}
+            </Link>
           </Button>
         ))}
       </SwipeContainer>
