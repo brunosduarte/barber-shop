@@ -1,10 +1,10 @@
-# 🪄 BsD Barber - Barbershop Booking System
+# BsD Barber - Barbershop Booking System
 
 A modern, full-stack barbershop booking application built with Next.js 15, featuring Google authentication, real-time booking management, rating system, and responsive design.
 
-🌐 **Live Demo:** [https://bsd-barbershop.vercel.app](https://bsd-barbershop.vercel.app)
-
 ![BsD Barber](./public/banner-01.png)
+
+🌐 **Live Demo:** [https://bsd-barbershop.vercel.app](https://bsd-barbershop.vercel.app)
 
 ## ✨ Features
 
@@ -305,52 +305,6 @@ GOOGLE_CLIENT_SECRET="your-google-client-secret"
 NEXT_AUTH_SECRET="your-production-secret-key"
 NEXT_AUTH_URL="https://yourdomain.com"
 ```
-
-### Build Process
-
-The application automatically:
-1. Generates Prisma client during build (`prisma generate`)
-2. Optimizes images and assets
-3. Type-checks the entire codebase
-4. Runs ESLint for code quality
-
-## 🧪 Development Tips
-
-### Database Development
-- Always use the `db` export from `app/_lib/prisma.ts`
-- Prisma client is generated to `generated/prisma/` (custom location)
-- Use `npx prisma studio` to browse and edit database contents
-- Remember to run `npx prisma generate` after schema changes
-
-### Code Quality
-- Pre-commit hooks automatically format code with Prettier
-- ESLint rules enforce Next.js and React best practices
-- TypeScript provides compile-time type checking
-- Use absolute imports from `@/` for better organization
-
-### UI Development
-- All UI components are based on shadcn/ui and Radix UI
-- Dark mode is enabled by default in the layout
-- Use the custom `SwipeContainer` for horizontal scrolling lists
-- Tailwind CSS classes are automatically sorted by Prettier
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Make your changes following the existing code style
-4. Ensure tests pass and code is properly formatted
-5. Commit your changes: `git commit -m 'Add amazing feature'`
-6. Push to the branch: `git push origin feature/amazing-feature`
-7. Open a Pull Request
-
-### Code Style Guidelines
-- Use TypeScript for all new code
-- Follow the existing component structure
-- Use Tailwind CSS for styling
-- Implement proper error handling
-- Add proper TypeScript types
-- Write descriptive commit messages
 
 ## 📝 License
 
